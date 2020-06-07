@@ -6,3 +6,5 @@
 /.idea/jarRepositories.xml
 /.idea/misc.xml
 /.idea/vcs.xml
+*.class
+/.idea/uiDesigner.xml
