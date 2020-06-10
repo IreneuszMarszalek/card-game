@@ -35,7 +35,7 @@ public class Utils {
         return false;
     }
 
-    private byte getIndexColorSeniority(String color){
+    public byte getIndexColorSeniority(String color){
         if (color == null){
             return -1;
         }
@@ -70,7 +70,7 @@ public class Utils {
         return -1;
     }
 
-    private byte getIndexValueSeniority(String value){
+    public byte getIndexValueSeniority(String value){
         if (value == null){
             return -1;
         }
@@ -106,5 +106,28 @@ public class Utils {
 
     public void displayCard(Card card){
         System.out.println(card.getValue() + " " + card.getColor());
+    }
+
+    public byte getIndexSeniorityValue(int seniority){
+        if (seniority == 0){
+            return -1;
+        }
+        byte index = 0;
+
+        for (int a:cardValueSeniority) {
+            if (a == seniority){
+                    return index;
+            }
+                index++;
+        }
+
+        return -1;
+    }
+
+    public String getValueByIndex (int index){
+        if (index + 1 > cardValueDesc.length){
+            return null;
+        }
+        return cardValueDesc[index];
     }
 }

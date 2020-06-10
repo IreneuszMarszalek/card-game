@@ -1,5 +1,6 @@
 package Application;
 
+import data.Card;
 import data.Parameters;
 import logic.Utils;
 
@@ -11,7 +12,7 @@ public class ParametersProvider {
 
         String temp;
         int numberOfCards;
-        String[] cardsValue = new String[13];
+        Card[] cards = new Card[13];
         do{
             System.out.print("Provide the number of cards <1-13>: ");
             temp = scanner.nextLine();
@@ -19,15 +20,20 @@ public class ParametersProvider {
         }while (numberOfCards == -1);
 
         for (int i = 1; i <= numberOfCards; i++) {
-            //TODO: check if cars was already provided
+            //TODO: check if cards was already provided
             do{
                 System.out.print("Provide card " + i + "/" + numberOfCards + " value <2,3,4,5,6,7,8,9,10,J,Q,K,A>:");
                 temp = scanner.nextLine();
-                cardsValue[i-1] = validateCardValue(temp);
-            }while(cardsValue[i-1] == null);
+                if (!checkIfCardAlreadyChosen(i-1, cards, temp)){
+                    System.out.println("Cards value already chosen");
+                    System.out.print("Provide card " + i + "/" + numberOfCards + " value <2,3,4,5,6,7,8,9,10,J,Q,K,A>:");
+                    continue;
+                }
+                cards[i-1] = new Card("Pik", validateCardValue(temp));
+            }while(cards[i-1].getValue() == null);
         }
 
-        return new Parameters(numberOfCards, cardsValue);
+        return new Parameters(numberOfCards, cards);
     }
 
     private int validateCardsNumber (String cardsNumber){
@@ -66,5 +72,14 @@ public class ParametersProvider {
         }
 
         return null;
+    }
+
+    private boolean checkIfCardAlreadyChosen (int n, Card[] array, String cardValue) {
+        for (int i = 0; i < n; i++) {
+            if (array[i].getValue().equals(cardValue)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

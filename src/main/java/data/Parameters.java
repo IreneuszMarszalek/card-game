@@ -2,18 +2,18 @@ package data;
 
 public class Parameters {
     private int cardsNumber;
-    private String[] cardsValues;
+    private Card[] cards;
 
     public int getCardsNumber() {
         return cardsNumber;
     }
 
-    public Parameters(int cardsNumber, String[] cardsValues) {
+    public Parameters(int cardsNumber, Card[] cards) {
         this.cardsNumber = cardsNumber;
-        this.cardsValues = cardsValues;
+        this.cards = cards;
     }
 
-    public String[] getCardsValues() {
-        return cardsValues;
+    public Card[] getCardsValues() {
+        return cards;
     }
 }
