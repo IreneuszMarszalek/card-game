@@ -11,26 +11,38 @@ public class ParametersProvider {
         Scanner scanner = new Scanner(System.in);
 
         String temp;
-        int numberOfCards;
+        int numberOfCards=0;
+        boolean loopResult;
         Card[] cards = new Card[13];
         do{
-            System.out.print("Provide the number of cards <1-13>: ");
+            loopResult = false;
+            System.out.print("Provide number of cards <1-13>: ");
             temp = scanner.nextLine();
-            numberOfCards = validateCardsNumber(temp);
-        }while (numberOfCards == -1);
+            if(validateCardsNumber(temp)==-1){
+                System.out.println("Incorrect number of cards");
+                loopResult = true;
+            }else {
+                numberOfCards = Integer.parseInt(temp);
+            }
+        }while (loopResult);
 
         for (int i = 1; i <= numberOfCards; i++) {
-            //TODO: check if cards was already provided
             do{
+                loopResult = false;
                 System.out.print("Provide card " + i + "/" + numberOfCards + " value <2,3,4,5,6,7,8,9,10,J,Q,K,A>:");
                 temp = scanner.nextLine();
                 if (!checkIfCardAlreadyChosen(i-1, cards, temp)){
                     System.out.println("Cards value already chosen");
-                    System.out.print("Provide card " + i + "/" + numberOfCards + " value <2,3,4,5,6,7,8,9,10,J,Q,K,A>:");
+                    loopResult = true;
                     continue;
                 }
-                cards[i-1] = new Card("Pik", validateCardValue(temp));
-            }while(cards[i-1].getValue() == null);
+                if (validateCardValue(temp) == null){
+                    System.out.println("Incorrect card value");
+                    loopResult = true;
+                }else {
+                    cards[i-1] = new Card("Pik", temp);
+                }
+            }while(loopResult);
         }
 
         return new Parameters(numberOfCards, cards);
